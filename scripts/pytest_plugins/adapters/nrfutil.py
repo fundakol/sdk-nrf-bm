@@ -8,7 +8,9 @@ This module provides functions for interacting with Nordic Semiconductor
 devices using the nrfutil command-line tool.
 """
 
+import json
 import logging
+from typing import Any
 
 from .common import run_command
 
@@ -29,3 +31,13 @@ def erase_board(dev_id: str | None) -> None:
     if dev_id:
         command.extend(["--serial-number", dev_id])
     run_command(command)
+
+
+def list_devices() -> dict[str, Any]:
+    """Return all devices as dictionary."""
+    command = ["nrfutil", "device", "list", "--json-pretty", "--skip-overhead"]
+    ret = run_command(command)
+    try:
+        return json.loads(ret.stdout)
+    except json.JSONDecodeError:
+        return {"devices": []}

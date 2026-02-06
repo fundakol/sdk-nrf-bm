@@ -53,6 +53,7 @@ def mcumgr(dut: DeviceAdapter) -> MCUmgr:
     return mcumgr
 
 
+@pytest.mark.sample("../mcuboot_recovery_retention", "boot.mcuboot_recovery_retention.uart")
 def test_if_uploading_too_large_softdevice_image_is_not_possible(
     dut: DeviceAdapter, request: pytest.FixtureRequest, mcumgr: MCUmgr
 ):

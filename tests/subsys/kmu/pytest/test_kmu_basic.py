@@ -11,6 +11,7 @@ from pytest_plugins.adapters.west import provision_keys_for_kmu
 from twister_harness import DeviceAdapter
 
 
+@pytest.mark.sample("../hello_for_kmu", "mcuboot.kmu.west.provision.manual_upload_key")
 @pytest.mark.usefixtures("no_reset")
 def test_if_kmu_key_can_be_uploaded_with_west_provision(
     dut: DeviceAdapter, config_reader: Callable

@@ -86,11 +86,11 @@ def west_build(
     command = [
         "west",
         "build",
-        "-p",
-        "-b",
+        "--pristine",
+        "--board",
         board,
         str(source_dir),
-        "-d",
+        "--build-dir",
         str(build_dir),
     ]
     if testsuite:
@@ -98,6 +98,7 @@ def west_build(
     if extra_args:
         command.extend(shlex.split(extra_args, posix=False))
 
+    build_dir.mkdir(parents=True, exist_ok=True)
     try:
         ret = run_command(command, timeout=timeout)
         if ret.returncode != 0:
